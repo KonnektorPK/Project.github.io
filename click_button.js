@@ -80,6 +80,23 @@ document.querySelector('#save').addEventListener('click', ()=>{
        console.log(data);
     });
     myModal.style.display = "none";
+
+    fetch(urlGET)
+    .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+    })
+    .then(data=> {
+      console.log(data);
+      for(var classButton of document.querySelectorAll('.data')){
+        classButton.querySelector('.data_name').textContent = data[classButton.id  / 11 - 1].info.name;
+        classButton.querySelector('.data_login').textContent = data[classButton.id  / 11 - 1].info.login;
+        classButton.querySelector('.data_password').textContent = data[classButton.id  / 11 - 1].info.password;
+        classButton.querySelector('.data_date').textContent = data[classButton.id  / 11 - 1].date;
+      }
+    });
 });
  
 document.querySelector('#exit').addEventListener('click', ()=>{
